@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lumina Media — Dokumentasi &amp; Live Streaming</title>
+  <meta name="description" content="Lumina Media — Jasa Dokumentasi & Live Streaming untuk Wedding, Hiburan, dan Acara Lainnya. Tonton tayangan lengkap di YouTube atau hubungi admin via WhatsApp." />
+
+  <!-- Memuat Tailwind CSS untuk tata letak mobile-first yang responsif -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Memuat Font Plus Jakarta Sans & Inter (maksimal 2 font) agar tampilan bersih dan modern -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet" />
+
+  <script>
+    // Konfigurasi keluarga font pada Tailwind CSS
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            heading: ['"Plus Jakarta Sans"', 'sans-serif'],
+            body: ['"Inter"', '"Plus Jakarta Sans"', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    /* Latar belakang pitch-black / midnight-dark (#050508) agar warna asli logo vektor tampil kontras & akurat */
+    body {
+      background-color: #050508;
+      background-image: linear-gradient(180deg, #050508 0%, #050508 46%, #0B0718 78%, #130A2A 100%);
+      min-height: 100vh;
+      color: #FFFFFF;
+      overflow-x: hidden;
+    }
+
+    /* Kartu media sosial gelap elegan dengan garis tepi ungu lembut */
+    .social-card {
+      background-color: rgba(34, 20, 68, 0.65);
+      border: 1px solid rgba(168, 85, 247, 0.32);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+                  background-color 0.2s ease,
+                  border-color 0.2s ease,
+                  box-shadow 0.2s ease,
+                  opacity 0.24s ease;
+    }
+
+    .social-card:hover {
+      background-color: rgba(48, 28, 94, 0.82);
+      border-color: rgba(168, 85, 247, 0.72);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 26px -8px rgba(8, 4, 20, 0.75);
+    }
+
+    .social-card:active {
+      transform: scale(0.985);
+    }
+
+    /* Kartu tombol utama WhatsApp berkontras tinggi */
+    .wa-card {
+      background: linear-gradient(180deg, #FFFFFF 0%, #F1F5F9 100%);
+      color: #0F0822;
+      border: 1px solid rgba(255, 255, 255, 0.95);
+      box-shadow: 0 10px 26px -6px rgba(5, 5, 8, 0.75);
+      transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+                  box-shadow 0.2s ease,
+                  background 0.2s ease,
+                  opacity 0.24s ease;
+    }
+
+    .wa-card:hover {
+      background: #FFFFFF;
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px -6px rgba(56, 189, 248, 0.26);
+    }
+
+    .wa-card:active {
+      transform: scale(0.985);
+    }
+
+    /* Tombol pilihan kategori acara interaktif */
+    .category-pill {
+      transition: all 0.18s ease;
+    }
+
+    /* State transisi saat tombol pecah menjadi partikel dan kembali utuh */
+    .btn-shattering {
+      opacity: 0 !important;
+      transform: scale(0.92) !important;
+      pointer-events: none;
+    }
+
+    .btn-reforming {
+      animation: buttonReform 0.38s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    @keyframes buttonReform {
+      0% {
+        opacity: 0;
+        transform: scale(0.92);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    /* Animasi notifikasi toast */
+    #copy-toast {
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+  </style>
+</head>
+<body class="font-body antialiased selection:bg-[#A855F7] selection:text-white relative flex flex-col items-center justify-between">
+
+  <!-- Kanvas Partikel Interaktif saat Tombol Ditekan -->
+  <canvas id="particleCanvas" class="fixed inset-0 pointer-events-none z-50" aria-hidden="true"></canvas>
+
+  <!-- Kontainer Utama Mobile-First Terpusat (Maksimal 440px) -->
+  <main class="relative z-10 w-full max-w-[440px] px-5 pt-10 pb-8 flex-1 flex flex-col justify-between">
+
+    <div>
+      <!-- 1. BAGIAN HEADER / IDENTITAS BRAND -->
+      <header class="flex flex-col items-center text-center mb-7">
+        <!-- Logo Vektor Datar Presisi Tinggi (Tanpa Bevel 3D, Tanpa Drop-Shadow, Tanpa Glow) -->
+        <div class="w-full flex justify-center mb-3.5 select-none">
+          <svg
+            viewBox="0 0 460 242"
+            class="w-full max-w-[285px] h-auto block"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            role="img"
+            aria-label="Logo Lumina Media"
+          >
+            <defs>
+              <!-- Gradasi ikon play: violet-purple (#A855F7) -> indigo-blue (#6366F1) -> electric blue (#38BDF8) -->
+              <linearGradient id="luminaPlayGrad" x1="194" y1="22" x2="266" y2="112" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#A855F7" />
+                <stop offset="50%" stop-color="#6366F1" />
+                <stop offset="100%" stop-color="#38BDF8" />
+              </linearGradient>
+
+              <!-- Gradasi horizontal teks M E D I A (#A855F7 -> #6366F1 -> #38BDF8) -->
+              <linearGradient id="luminaMediaGrad" x1="168" y1="214" x2="292" y2="214" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#A855F7" />
+                <stop offset="50%" stop-color="#6366F1" />
+                <stop offset="100%" stop-color="#38BDF8" />
+              </linearGradient>
+            </defs>
+
+            <!-- Ikon Play dengan Sudut Membulat & Cutout Ruang Negatif Bertingkat Khas Lumina -->
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M194 36C194 25 203 20 212 26L261 58.5C269 63.8 269 72.2 261 77.5L212 110C203 116 194 111 194 100V36ZM210 46.5C210 43.8 212.8 42.2 215.1 43.7L242.5 61.8C246.8 64.6 246.8 71.4 242.5 74.2L230.5 82.1C225.8 85.2 223.8 87.8 223.8 92.2V94.5C223.8 97.2 221.7 99.2 219 99.2H214.5C212 99.2 210 97.2 210 94.5V46.5Z"
+              fill="url(#luminaPlayGrad)"
+            />
+
+            <!-- Wordmark L U M I N Λ (#FFFFFF Murni, Jalur Geometris Wide-Tracked) -->
+            <g fill="#FFFFFF">
+              <!-- L -->
+              <path d="M79 152H82.6V176.4H101V180H79V152Z" />
+              <!-- U -->
+              <path d="M133 152H136.6V167.8C136.6 173.4 140.4 176.8 146 176.8C151.6 176.8 155.4 173.4 155.4 167.8V152H159V167.9C159 175.4 153.6 180.4 146 180.4C138.4 180.4 133 175.4 133 167.9V152Z" />
+              <!-- M -->
+              <path d="M191 152H194.9L207 174.3L219.1 152H223V180H219.4V158.7L208.1 180H205.9L194.6 158.7V180H191V152Z" />
+              <!-- I -->
+              <path d="M255 152H258.6V180H255V152Z" />
+              <!-- N -->
+              <path d="M291 152H294.8L314.4 174.4V152H318V180H314.3L294.6 157.5V180H291V152Z" />
+              <!-- Λ (Lambda tajam tanpa garis tengah) -->
+              <path d="M363.1 152H366.9L380 180H376L365 156.2L354 180H350L363.1 152Z" />
+            </g>
+
+            <!-- Sub-wordmark M E D I A (Gradasi Horizontal #A855F7 -> #6366F1 -> #38BDF8) -->
+            <g fill="url(#luminaMediaGrad)">
+              <!-- M -->
+              <path d="M168 207H169.9L175.45 217.5L181 207H182.9V220.5H181.2V210.4L176 220.5H174.9L169.7 210.4V220.5H168V207Z" />
+              <!-- E -->
+              <path d="M199.5 207H209.4V208.7H201.3V212.8H208.4V214.5H201.3V218.8H209.4V220.5H199.5V207Z" />
+              <!-- D -->
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M225.5 207H230.3C234.4 207 237 209.7 237 213.75C237 217.8 234.4 220.5 230.3 220.5H225.5V207ZM227.3 208.7V218.8H230.2C233.2 218.8 235.1 216.8 235.1 213.75C235.1 210.7 233.2 208.7 230.2 208.7H227.3Z" />
+              <!-- I -->
+              <path d="M256.8 207H258.6V220.5H256.8V207Z" />
+              <!-- A -->
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M284.4 207H286.2L291.8 220.5H289.8L288.4 217.1H282.2L280.8 220.5H278.8L284.4 207ZM287.7 215.4L285.3 209.3L282.9 215.4H287.7Z" />
+            </g>
+          </svg>
+        </div>
+
+        <!-- Badge Layanan Dua Baris dalam Satu Bingkai Border Tunggal -->
+        <div class="mt-0.5 inline-flex flex-col items-center justify-center px-5 py-2.5 rounded-2xl bg-[#110B22]/90 border border-[#A855F7]/40 text-center">
+          <span class="font-heading text-xs font-semibold tracking-wide text-white">
+            Dokumentasi &amp; Live Streaming
+          </span>
+          <span class="font-body text-[11px] font-normal text-[#B8A9D9] mt-0.5">
+            Wedding &bull; Hiburan &bull; Acara Lainnya
+          </span>
+        </div>
+      </header>
+
+      <!-- 2. BAGIAN BOOKING WHATSAPP INTERAKTIF (PRIORITY CTA) -->
+      <section aria-labelledby="booking-heading" class="mb-6">
+        <div class="flex flex-col items-center mb-3">
+          <h2 id="booking-heading" class="font-heading text-xs font-semibold uppercase tracking-wider text-[#B8A9D9] mb-2">
+            Info &amp; Booking Cepat via WhatsApp
+          </h2>
+
+          <!-- Pemilih Cepat 4 Kategori Acara -->
+          <div role="group" aria-label="Pilih kategori acara untuk pesan WhatsApp" class="flex flex-wrap items-center justify-center gap-1.5">
+            <button
+              type="button"
+              data-category="Umum"
+              data-shatter-theme="accent"
+              aria-pressed="true"
+              class="category-pill px-3 py-1 rounded-full text-[11px] font-medium border bg-[#A855F7]/30 border-[#C084FC]/75 text-white shadow-sm cursor-pointer"
+            >
+              Umum
+            </button>
+            <button
+              type="button"
+              data-category="Wedding"
+              data-shatter-theme="accent"
+              aria-pressed="false"
+              class="category-pill px-3 py-1 rounded-full text-[11px] font-medium border bg-[#221444]/65 border-[#A855F7]/30 text-[#B8A9D9] hover:text-white hover:border-[#A855F7]/70 cursor-pointer"
+            >
+              Wedding
+            </button>
+            <button
+              type="button"
+              data-category="Hiburan"
+              data-shatter-theme="accent"
+              aria-pressed="false"
+              class="category-pill px-3 py-1 rounded-full text-[11px] font-medium border bg-[#221444]/65 border-[#A855F7]/30 text-[#B8A9D9] hover:text-white hover:border-[#A855F7]/70 cursor-pointer"
+            >
+              Hiburan
+            </button>
+            <button
+              type="button"
+              data-category="Acara Lainnya"
+              data-shatter-theme="accent"
+              aria-pressed="false"
+              class="category-pill px-3 py-1 rounded-full text-[11px] font-medium border bg-[#221444]/65 border-[#A855F7]/30 text-[#B8A9D9] hover:text-white hover:border-[#A855F7]/70 cursor-pointer"
+            >
+              Acara Lainnya
+            </button>
+          </div>
+        </div>
+
+        <!-- Dua Tombol Aksi Utama WhatsApp Admin -->
+        <div class="flex flex-col gap-2.5">
+          <!-- WhatsApp Admin 1 -->
+          <a
+            id="wa-admin-1"
+            data-shatter-theme="whatsapp"
+            href="https://wa.me/6281324910690?text=Halo%20Lumina%20Media%2C%20saya%20mau%20tanya%20info%20jasa%20dokumentasi%20%2F%20live%20streaming%20untuk%20acara%3A%20(Wedding%20%2F%20Hiburan%20%2F%20Acara%20Lainnya).%0ATanggal%20acara%3A%20%0ALokasi%3A%20"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="wa-card rounded-2xl p-3.5 flex items-center justify-between focus:outline-none focus:ring-2 focus:ring-[#38BDF8]"
+          >
+            <div class="flex items-center gap-3 min-w-0">
+              <div class="w-10 h-10 rounded-xl bg-[#10B981]/15 flex items-center justify-center shrink-0 text-[#059669]">
+                <!-- Ikon Resmi WhatsApp -->
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M12.031 2c-5.516 0-9.969 4.453-9.969 9.969 0 1.758.459 3.473 1.332 4.986L2 22l5.188-1.359a9.927 9.927 0 0 0 4.843 1.258h.004c5.515 0 9.969-4.453 9.969-9.969A9.934 9.934 0 0 0 19.08 4.92 9.903 9.903 0 0 0 12.031 2Zm5.814 14.23c-.246.691-1.43 1.324-1.984 1.406-.508.076-1.152.109-1.859-.115-.43-.137-.98-.32-1.688-.625-2.968-1.281-4.906-4.269-5.054-4.468-.149-.199-1.207-1.605-1.207-3.062 0-1.457.762-2.172 1.031-2.469.27-.297.59-.371.785-.371.195 0 .391.002.563.01.18.008.422-.068.66.504.246.59.836 2.039.91 2.187.074.149.123.322.025.52-.098.199-.148.322-.297.496-.148.174-.312.389-.445.522-.149.148-.305.309-.131.607.174.297.773 1.275 1.66 2.066 1.141 1.018 2.102 1.334 2.398 1.482.297.149.471.125.645-.074.174-.199.742-.867.941-1.164.199-.297.396-.248.668-.148.273.099 1.734.818 2.031.967.297.148.496.223.568.348.074.123.074.717-.172 1.408Z" />
+                </svg>
+              </div>
+              <div class="min-w-0">
+                <div class="font-heading text-[14px] font-bold leading-tight text-[#0F0822] truncate">
+                  Chat WhatsApp Admin 1
+                </div>
+                <div class="font-body text-[11.5px] font-medium text-[#0F0822]/75 mt-0.5 truncate">
+                  0813-2491-0690 &bull; Tanya Jadwal &amp; Paket
+                </div>
+              </div>
+            </div>
+            <svg class="w-4 h-4 text-[#0F0822]/60 shrink-0 ml-2" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 14L14 6M14 6H7.5M14 6V12.5" />
+            </svg>
+          </a>
+
+          <!-- WhatsApp Admin 2 -->
+          <a
+            id="wa-admin-2"
+            data-shatter-theme="whatsapp"
+            href="https://wa.me/6281808192580?text=Halo%20Lumina%20Media%2C%20saya%20mau%20tanya%20info%20jasa%20dokumentasi%20%2F%20live%20streaming%20untuk%20acara%3A%20(Wedding%20%2F%20Hiburan%20%2F%20Acara%20Lainnya).%0ATanggal%20acara%3A%20%0ALokasi%3A%20"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="wa-card rounded-2xl p-3.5 flex items-center justify-between focus:outline-none focus:ring-2 focus:ring-[#38BDF8]"
+          >
+            <div class="flex items-center gap-3 min-w-0">
+              <div class="w-10 h-10 rounded-xl bg-[#10B981]/15 flex items-center justify-center shrink-0 text-[#059669]">
+                <!-- Ikon Resmi WhatsApp -->
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M12.031 2c-5.516 0-9.969 4.453-9.969 9.969 0 1.758.459 3.473 1.332 4.986L2 22l5.188-1.359a9.927 9.927 0 0 0 4.843 1.258h.004c5.515 0 9.969-4.453 9.969-9.969A9.934 9.934 0 0 0 19.08 4.92 9.903 9.903 0 0 0 12.031 2Zm5.814 14.23c-.246.691-1.43 1.324-1.984 1.406-.508.076-1.152.109-1.859-.115-.43-.137-.98-.32-1.688-.625-2.968-1.281-4.906-4.269-5.054-4.468-.149-.199-1.207-1.605-1.207-3.062 0-1.457.762-2.172 1.031-2.469.27-.297.59-.371.785-.371.195 0 .391.002.563.01.18.008.422-.068.66.504.246.59.836 2.039.91 2.187.074.149.123.322.025.52-.098.199-.148.322-.297.496-.148.174-.312.389-.445.522-.149.148-.305.309-.131.607.174.297.773 1.275 1.66 2.066 1.141 1.018 2.102 1.334 2.398 1.482.297.149.471.125.645-.074.174-.199.742-.867.941-1.164.199-.297.396-.248.668-.148.273.099 1.734.818 2.031.967.297.148.496.223.568.348.074.123.074.717-.172 1.408Z" />
+                </svg>
+              </div>
+              <div class="min-w-0">
+                <div class="font-heading text-[14px] font-bold leading-tight text-[#0F0822] truncate">
+                  Chat WhatsApp Admin 2
+                </div>
+                <div class="font-body text-[11.5px] font-medium text-[#0F0822]/75 mt-0.5 truncate">
+                  0818-0819-2580 &bull; Info &amp; Booking Cepat
+                </div>
+              </div>
+            </div>
+            <svg class="w-4 h-4 text-[#0F0822]/60 shrink-0 ml-2" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 14L14 6M14 6H7.5M14 6V12.5" />
+            </svg>
+          </a>
+        </div>
+      </section>
+
+      <!-- 3. CHANNEL RESMI & MEDIA SOSIAL -->
+      <nav aria-label="Channel dan Media Sosial Resmi Lumina Media">
+        <h2 class="font-heading text-xs font-semibold uppercase tracking-wider text-[#B8A9D9] text-center mb-3">
+          Channel &amp; Sosial Media Resmi
+        </h2>
+
+        <div class="flex flex-col gap-3">
+          <!-- 1. YouTube Channel -->
+          <a
+            id="link-youtube"
+            data-shatter-theme="youtube"
+            href="https://youtube.com/@luminamedia.stream?si=gVSLLQa9CnrkoCfE"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-card rounded-2xl p-4 flex items-center justify-between focus:outline-none focus:ring-2 focus:ring-[#A855F7]"
+          >
+            <div class="flex items-center gap-3.5 min-w-0">
+              <div class="w-11 h-11 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center shrink-0 text-white">
+                <!-- Ikon Resmi YouTube -->
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814ZM9.545 15.568V8.432L15.818 12l-6.273 3.568Z" />
+                </svg>
+              </div>
+              <div class="min-w-0">
+                <div class="font-heading text-[14.5px] font-semibold leading-snug text-white truncate">
+                  YouTube Lumina Media
+                </div>
+                <div class="font-body text-xs font-normal text-[#B8A9D9] truncate mt-0.5">
+                  @luminamedia.stream &bull; Tayangan Lengkap
+                </div>
+              </div>
+            </div>
+            <!-- Ikon Panah Eksternal -->
+            <svg class="w-4 h-4 text-[#B8A9D9]/80 shrink-0 ml-2" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 14L14 6M14 6H7.5M14 6V12.5" />
+            </svg>
+          </a>
+
+          <!-- 2. Instagram Resmi -->
+          <a
+            id="link-instagram"
+            data-shatter-theme="instagram"
+            href="https://www.instagram.com/luminamedia_stream"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-card rounded-2xl p-4 flex items-center justify-between focus:outline-none focus:ring-2 focus:ring-[#A855F7]"
+          >
+            <div class="flex items-center gap-3.5 min-w-0">
+              <div class="w-11 h-11 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center shrink-0 text-white">
+                <!-- Ikon Resmi Instagram -->
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069Zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073Zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324ZM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881Z" />
+                </svg>
+              </div>
+              <div class="min-w-0">
+                <div class="font-heading text-[14.5px] font-semibold leading-snug text-white truncate">
+                  Instagram Resmi
+                </div>
+                <div class="font-body text-xs font-normal text-[#B8A9D9] truncate mt-0.5">
+                  @luminamedia_stream &bull; Reels &amp; Highlight
+                </div>
+              </div>
+            </div>
+            <!-- Ikon Panah Eksternal -->
+            <svg class="w-4 h-4 text-[#B8A9D9]/80 shrink-0 ml-2" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 14L14 6M14 6H7.5M14 6V12.5" />
+            </svg>
+          </a>
+
+          <!-- 3. TikTok Official -->
+          <a
+            id="link-tiktok"
+            data-shatter-theme="tiktok"
+            href="https://www.tiktok.com/@luminamedia.official?_r=1&_t=ZS-9Bdh2oJN03L"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-card rounded-2xl p-4 flex items-center justify-between focus:outline-none focus:ring-2 focus:ring-[#A855F7]"
+          >
+            <div class="flex items-center gap-3.5 min-w-0">
+              <div class="w-11 h-11 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center shrink-0 text-white">
+                <!-- Ikon Resmi TikTok -->
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1Z" />
+                </svg>
+              </div>
+              <div class="min-w-0">
+                <div class="font-heading text-[14.5px] font-semibold leading-snug text-white truncate">
+                  TikTok Lumina Media
+                </div>
+                <div class="font-body text-xs font-normal text-[#B8A9D9] truncate mt-0.5">
+                  @luminamedia.official &bull; Klip Momen Seru
+                </div>
+              </div>
+            </div>
+            <!-- Ikon Panah Eksternal -->
+            <svg class="w-4 h-4 text-[#B8A9D9]/80 shrink-0 ml-2" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 14L14 6M14 6H7.5M14 6V12.5" />
+            </svg>
+          </a>
+
+          <!-- 4. Facebook Page -->
+          <a
+            id="link-facebook"
+            data-shatter-theme="facebook"
+            href="https://www.facebook.com/share/1VWqQRyJeY/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-card rounded-2xl p-4 flex items-center justify-between focus:outline-none focus:ring-2 focus:ring-[#A855F7]"
+          >
+            <div class="flex items-center gap-3.5 min-w-0">
+              <div class="w-11 h-11 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center shrink-0 text-white">
+                <!-- Ikon Resmi Facebook -->
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12Z" />
+                </svg>
+              </div>
+              <div class="min-w-0">
+                <div class="font-heading text-[14.5px] font-semibold leading-snug text-white truncate">
+                  Halaman Facebook
+                </div>
+                <div class="font-body text-xs font-normal text-[#B8A9D9] truncate mt-0.5">
+                  Lumina Media &bull; Galeri &amp; Update Acara
+                </div>
+              </div>
+            </div>
+            <!-- Ikon Panah Eksternal -->
+            <svg class="w-4 h-4 text-[#B8A9D9]/80 shrink-0 ml-2" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 14L14 6M14 6H7.5M14 6V12.5" />
+            </svg>
+          </a>
+        </div>
+      </nav>
+    </div>
+
+    <!-- 4. BAGIAN FOOTER -->
+    <footer class="mt-9 pt-4 text-center flex flex-col items-center gap-3.5">
+      <p class="font-body text-xs font-normal leading-relaxed text-[#B8A9D9]">
+        &ldquo;Ruang untuk setiap momen berharga dan setiap keseruannya&rdquo;
+      </p>
+
+      <!-- Tombol Salin Link Halaman -->
+      <button
+        type="button"
+        id="copy-page-link-btn"
+        data-shatter-theme="accent"
+        class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#221444]/70 hover:bg-[#2E1B5B] border border-[#A855F7]/35 text-[11.5px] font-medium text-[#D6CCEE] hover:text-white transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#A855F7]"
+      >
+        <svg class="w-3.5 h-3.5 text-[#38BDF8]" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V5a2 2 0 012-2h5a2 2 0 012 2v5a2 2 0 01-2 2h-2M5 9h5a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2z" />
+        </svg>
+        <span>Salin Link Halaman Ini</span>
+      </button>
+    </footer>
+
+  </main>
+
+  <!-- Notifikasi Toast Umpan Balik Salin Link -->
+  <div
+    id="copy-toast"
+    role="status"
+    aria-live="polite"
+    class="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 w-[88%] max-w-[360px] rounded-full bg-[#110B22]/95 border border-[#A855F7]/50 px-4 py-2.5 text-center text-xs font-medium text-white shadow-2xl opacity-0 pointer-events-none translate-y-2"
+  >
+    Link halaman berhasil disalin!
+  </div>
+
+  <script>
+    /**
+     * =========================================================================
+     * 1. KONFIGURASI TAUTAN & DATA LUMINA MEDIA (Mudah Diperbarui Kapan Saja)
+     * =========================================================================
+     */
+    const LINKS = {
+      whatsappAdmin1: "6281324910690",
+      whatsappAdmin2: "6281808192580",
+      youtube: "https://youtube.com/@luminamedia.stream?si=gVSLLQa9CnrkoCfE",
+      instagram: "https://www.instagram.com/luminamedia_stream",
+      tiktok: "https://www.tiktok.com/@luminamedia.official?_r=1&_t=ZS-9Bdh2oJN03L",
+      facebook: "https://www.facebook.com/share/1VWqQRyJeY/"
+    };
+
+    /**
+     * =========================================================================
+     * 2. HTML5 CANVAS PARTICLE SHATTER ENGINE
+     * Mengubah tombol yang ditekan menjadi butiran partikel cahaya & serpihan mikro
+     * dengan warna sesuai tema tombol, lalu memulihkan tombol dengan halus.
+     * =========================================================================
+     */
+    class ParticleShatterEngine {
+      constructor(canvasElement) {
+        this.canvas = canvasElement;
+        this.ctx = this.canvas ? this.canvas.getContext("2d") : null;
+        this.particles = [];
+        this.rafId = null;
+        this.lastTimestamp = 0;
+
+        this.palettes = {
+          whatsapp: ["#10B981", "#34D399", "#6EE7B7", "#A7F3D0", "#FFFFFF"],
+          youtube: ["#EF4444", "#F87171", "#FB7185", "#FCA5A5", "#FFFFFF"],
+          instagram: ["#A855F7", "#EC4899", "#F43F5E", "#F97316", "#FBBF24"],
+          tiktok: ["#22D3EE", "#38BDF8", "#F43F5E", "#FB7185", "#FFFFFF"],
+          facebook: ["#3B82F6", "#60A5FA", "#38BDF8", "#93C5FD", "#FFFFFF"],
+          accent: ["#A855F7", "#6366F1", "#38BDF8", "#E9D5FF", "#FFFFFF"]
+        };
+
+        if (this.canvas && this.ctx) {
+          this.resize();
+          window.addEventListener("resize", () => this.resize(), { passive: true });
+        }
+      }
+
+      resize() {
+        if (!this.canvas || !this.ctx) return;
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        this.canvas.width = Math.floor(width * dpr);
+        this.canvas.height = Math.floor(height * dpr);
+        this.canvas.style.width = `${width}px`;
+        this.canvas.style.height = `${height}px`;
+        this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+
+      shatter(element, clientX, clientY, options = {}) {
+        if (!this.ctx || !element) return;
+
+        const {
+          theme = element.getAttribute("data-shatter-theme") || "accent",
+          count = 76,
+          hideButton = true,
+          reformDelay = 1100
+        } = options;
+
+        const rect = element.getBoundingClientRect();
+        const palette = this.palettes[theme] || this.palettes.accent;
+
+        const hasPointer =
+          typeof clientX === "number" &&
+          typeof clientY === "number" &&
+          (clientX > 0 || clientY > 0);
+        const originX = hasPointer ? clientX : rect.left + rect.width / 2;
+        const originY = hasPointer ? clientY : rect.top + rect.height / 2;
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+
+        for (let i = 0; i < count; i++) {
+          const px = rect.left + Math.random() * rect.width;
+          const py = rect.top + Math.random() * rect.height;
+
+          const dxTouch = px - originX;
+          const dyTouch = py - originY;
+          const distTouch = Math.hypot(dxTouch, dyTouch) || 1;
+
+          const dxCenter = px - centerX;
+          const dyCenter = py - centerY;
+          const distCenter = Math.hypot(dxCenter, dyCenter) || 1;
+
+          const randomAngle = Math.random() * Math.PI * 2;
+          const speed = 1.6 + Math.random() * 4.6;
+
+          const vx =
+            (dxTouch / distTouch) * (speed * 0.6) +
+            (dxCenter / distCenter) * (speed * 0.45) +
+            Math.cos(randomAngle) * (0.9 + Math.random() * 1.4);
+
+          const vy =
+            (dyTouch / distTouch) * (speed * 0.6) +
+            (dyCenter / distCenter) * (speed * 0.45) +
+            Math.sin(randomAngle) * (0.9 + Math.random() * 1.4);
+
+          const color = palette[Math.floor(Math.random() * palette.length)];
+          const size = 2 + Math.random() * 2.6;
+          const duration = 900 + Math.random() * 220;
+          const shape = Math.random() < 0.6 ? "grain" : "shard";
+
+          this.particles.push({
+            x: px,
+            y: py,
+            vx,
+            vy,
+            size,
+            color,
+            shape,
+            angle: Math.random() * Math.PI * 2,
+            vAngle: (Math.random() - 0.5) * 0.24,
+            drag: 0.94 + Math.random() * 0.025,
+            gravity: (Math.random() - 0.35) * 0.045,
+            age: 0,
+            duration
+          });
+        }
+
+        if (hideButton) {
+          if (element._reformTimer) {
+            clearTimeout(element._reformTimer);
+          }
+          element.classList.remove("btn-reforming");
+          element.classList.add("btn-shattering");
+
+          element._reformTimer = setTimeout(() => {
+            element.classList.remove("btn-shattering");
+            element.classList.add("btn-reforming");
+            setTimeout(() => {
+              element.classList.remove("btn-reforming");
+            }, 400);
+          }, reformDelay);
+        }
+
+        if (!this.rafId) {
+          this.lastTimestamp = performance.now();
+          this.rafId = requestAnimationFrame((ts) => this.loop(ts));
+        }
+      }
+
+      loop(timestamp) {
+        const dt = Math.min(timestamp - this.lastTimestamp, 32);
+        this.lastTimestamp = timestamp;
+        const stepFactor = dt / 16.667;
+
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        this.ctx.clearRect(0, 0, width, height);
+
+        for (let i = this.particles.length - 1; i >= 0; i--) {
+          const p = this.particles[i];
+          p.age += dt;
+
+          if (p.age >= p.duration) {
+            this.particles.splice(i, 1);
+            continue;
+          }
+
+          p.vx *= Math.pow(p.drag, stepFactor);
+          p.vy = p.vy * Math.pow(p.drag, stepFactor) + p.gravity * stepFactor;
+          p.x += p.vx * stepFactor;
+          p.y += p.vy * stepFactor;
+          p.angle += p.vAngle * stepFactor;
+
+          const progress = p.age / p.duration;
+          const alpha = Math.max(0, 1 - Math.pow(progress, 1.45));
+          const currentSize = p.size * (1 - progress * 0.35);
+
+          this.ctx.save();
+          this.ctx.globalAlpha = alpha;
+          this.ctx.fillStyle = p.color;
+          this.ctx.translate(p.x, p.y);
+
+          if (p.shape === "grain") {
+            this.ctx.beginPath();
+            this.ctx.arc(0, 0, currentSize * 0.65, 0, Math.PI * 2);
+            this.ctx.fill();
+          } else {
+            this.ctx.rotate(p.angle);
+            this.ctx.fillRect(-currentSize * 0.55, -currentSize * 0.55, currentSize * 1.1, currentSize * 1.1);
+          }
+
+          this.ctx.restore();
+        }
+
+        if (this.particles.length > 0) {
+          this.rafId = requestAnimationFrame((ts) => this.loop(ts));
+        } else {
+          this.ctx.clearRect(0, 0, width, height);
+          this.rafId = null;
+        }
+      }
+    }
+
+    /**
+     * =========================================================================
+     * 3. INISIALISASI INTERAKTIVITAS BIO LINK LUMINA MEDIA
+     * =========================================================================
+     */
+    (function () {
+      const CATEGORY_LABELS = {
+        "Umum": "(Wedding / Hiburan / Acara Lainnya)",
+        "Wedding": "Wedding",
+        "Hiburan": "Hiburan",
+        "Acara Lainnya": "Acara Lainnya"
+      };
+
+      const particleCanvas = document.getElementById("particleCanvas");
+      const shatterEngine = new ParticleShatterEngine(particleCanvas);
+
+      const waAdmin1Link = document.getElementById("wa-admin-1");
+      const waAdmin2Link = document.getElementById("wa-admin-2");
+      const youtubeLink = document.getElementById("link-youtube");
+      const instagramLink = document.getElementById("link-instagram");
+      const tiktokLink = document.getElementById("link-tiktok");
+      const facebookLink = document.getElementById("link-facebook");
+      const categoryButtons = document.querySelectorAll(".category-pill");
+      const copyBtn = document.getElementById("copy-page-link-btn");
+      const copyToast = document.getElementById("copy-toast");
+      let toastTimeout = null;
+
+      // Sinkronisasi tautan media sosial dari objek konfigurasi LINKS
+      if (youtubeLink) youtubeLink.href = LINKS.youtube;
+      if (instagramLink) instagramLink.href = LINKS.instagram;
+      if (tiktokLink) tiktokLink.href = LINKS.tiktok;
+      if (facebookLink) facebookLink.href = LINKS.facebook;
+
+      /**
+       * Menyusun URL WhatsApp dengan pesan booking bahasa Indonesia yang rapi
+       */
+      function buildWhatsAppHref(phoneNumber, categoryKey) {
+        const eventLabel = CATEGORY_LABELS[categoryKey] || CATEGORY_LABELS["Umum"];
+        const message =
+          `Halo Lumina Media, saya mau tanya info jasa dokumentasi / live streaming untuk acara: ${eventLabel}.\n` +
+          `Tanggal acara: \n` +
+          `Lokasi: `;
+
+        return `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+      }
+
+      /**
+       * Memperbarui pil kategori aktif serta tautan kedua tombol WhatsApp Admin
+       */
+      function selectEventCategory(selectedCategory) {
+        categoryButtons.forEach((btn) => {
+          const isMatch = btn.getAttribute("data-category") === selectedCategory;
+          btn.setAttribute("aria-pressed", isMatch ? "true" : "false");
+
+          if (isMatch) {
+            btn.className =
+              "category-pill px-3 py-1 rounded-full text-[11px] font-medium border bg-[#A855F7]/30 border-[#C084FC]/75 text-white shadow-sm cursor-pointer";
+          } else {
+            btn.className =
+              "category-pill px-3 py-1 rounded-full text-[11px] font-medium border bg-[#221444]/65 border-[#A855F7]/30 text-[#B8A9D9] hover:text-white hover:border-[#A855F7]/70 cursor-pointer";
+          }
+        });
+
+        if (waAdmin1Link) {
+          waAdmin1Link.href = buildWhatsAppHref(LINKS.whatsappAdmin1, selectedCategory);
+        }
+        if (waAdmin2Link) {
+          waAdmin2Link.href = buildWhatsAppHref(LINKS.whatsappAdmin2, selectedCategory);
+        }
+      }
+
+      // Inisialisasi tautan WhatsApp awal
+      selectEventCategory("Umum");
+
+      /**
+       * Menampilkan notifikasi toast tanpa memakai alert()
+       */
+      function showToast(text) {
+        if (!copyToast) return;
+        copyToast.textContent = text;
+        copyToast.classList.remove("opacity-0", "translate-y-2");
+        copyToast.classList.add("opacity-100", "translate-y-0");
+
+        if (toastTimeout) clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => {
+          copyToast.classList.remove("opacity-100", "translate-y-0");
+          copyToast.classList.add("opacity-0", "translate-y-2");
+        }, 2500);
+      }
+
+      /**
+       * Menyalin URL halaman saat ini secara aman (kompatibel di iframe & browser HP)
+       */
+      function copyCurrentPageUrl() {
+        const urlToCopy = window.location.href;
+        try {
+          const tempInput = document.createElement("textarea");
+          tempInput.value = urlToCopy;
+          tempInput.setAttribute("readonly", "");
+          tempInput.style.position = "fixed";
+          tempInput.style.left = "-9999px";
+          document.body.appendChild(tempInput);
+          tempInput.select();
+          tempInput.setSelectionRange(0, tempInput.value.length);
+
+          const copied = document.execCommand("copy");
+          document.body.removeChild(tempInput);
+
+          if (copied) {
+            showToast("Link halaman berhasil disalin!");
+          } else if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(urlToCopy)
+              .then(() => showToast("Link halaman berhasil disalin!"))
+              .catch(() => showToast("Salin link dari bilah alamat browser"));
+          } else {
+            showToast("Salin link dari bilah alamat browser");
+          }
+        } catch (err) {
+          console.error("Gagal menyalin link:", err);
+          showToast("Salin link dari bilah alamat browser");
+        }
+      }
+
+      // Pasang efek pecah partikel pada seluruh kartu tautan (WhatsApp & Media Sosial)
+      const actionLinks = document.querySelectorAll(".wa-card, .social-card");
+      actionLinks.forEach((linkEl) => {
+        linkEl.addEventListener("click", (e) => {
+          e.preventDefault();
+          const targetHref = linkEl.getAttribute("href");
+          shatterEngine.shatter(linkEl, e.clientX, e.clientY, {
+            count: 78,
+            hideButton: true,
+            reformDelay: 1100
+          });
+
+          setTimeout(() => {
+            if (targetHref) {
+              window.open(targetHref, "_blank", "noopener,noreferrer");
+            }
+          }, 400);
+        });
+      });
+
+      // Pasang efek partikel pada tombol pil kategori acara
+      categoryButtons.forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          const category = btn.getAttribute("data-category");
+          shatterEngine.shatter(btn, e.clientX, e.clientY, {
+            count: 34,
+            hideButton: false
+          });
+          selectEventCategory(category);
+        });
+      });
+
+      // Pasang efek partikel pada tombol salin tautan halaman
+      if (copyBtn) {
+        copyBtn.addEventListener("click", (e) => {
+          shatterEngine.shatter(copyBtn, e.clientX, e.clientY, {
+            count: 42,
+            hideButton: true,
+            reformDelay: 950
+          });
+          copyCurrentPageUrl();
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
